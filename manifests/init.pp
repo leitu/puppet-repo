@@ -14,8 +14,5 @@ class repo (
     fail("Please input ip adress")
   }
 
-  anchor { 'repo::begin' : }
-  ~> class { 'repo::clean' : }
-  -> class { 'repo::config' : }
-  ~> anchor { 'repo::end' : }
+  include repo::config
 }
