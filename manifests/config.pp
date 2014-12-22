@@ -1,5 +1,5 @@
 class repo::config inherits repo {
-    $myrepo = {
+  $myrepo = {
        'Thoughtworks'                =>  { descr   => 'Thoughtworks',
                             baseurl  => "http://${repo_server}/CentOS/6.5/os/x86_64",
                             gpgkey   => "http://${repo_server}/CentOS/6.5/os/x86_64/RPM-GPG-KEY-CentOS-6",
@@ -22,6 +22,10 @@ class repo::config inherits repo {
       }
   case $::osfamily {
     'RedHat' : {
+      tidy { "/etc/yum.repos.d" :
+        matches => [ "*.repo" ],
+        recurse => 1,
+      }
       create_resources(yumrepo, $myrepo)
       }
     default : {
